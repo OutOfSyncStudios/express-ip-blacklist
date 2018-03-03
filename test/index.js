@@ -1,19 +1,12 @@
 // test/index.js
 
 // Dependancies
-const __ = require('@mediaxpost/lodashext');
-const emitter = require('events');
 const lolex = require('lolex');
 const chai = require('chai');
 const expect = chai.expect;
 const IPBlacklist = require('..');
 
-const req = {
-  headers: {},
-  connection: {
-    remoteAddress: '127.0.0.1'
-  }
-};
+const req = { headers: {}, connection: { remoteAddress: '127.0.0.1' } };
 
 const res = {
   _status: 0,
@@ -26,7 +19,9 @@ const res = {
     this._message = data;
   },
   set: function(key, value) {
-    if (!this._headers) { this._headers = {}; }
+    if (!this._headers) {
+      this._headers = {};
+    }
     this._headers[key] = value;
   }
 };
@@ -61,9 +56,9 @@ describe('IPBlacklist', () => {
   });
 
   it('checkWhitelist (function) good', () => {
-    ipBlacklist.config.whitelist = ((req) => {
-      return (req.connection.remoteAddress === '127.0.0.1');
-    });
+    ipBlacklist.config.whitelist = (_req) => {
+      return _req.connection.remoteAddress === '127.0.0.1';
+    };
     const test = ipBlacklist.checkWhitelist(req);
     expect(test).to.be.equal(true);
   });
@@ -88,55 +83,54 @@ describe('IPBlacklist', () => {
 
   it('increment', (done) => {
     ipBlacklist.increment(req, res, null, () => {
-      const v = JSON.parse(ipBlacklist.cache.cache.cache['test'].value['ipblacklist:127.0.0.1']);
-      expect(v.remaining).to.be.equal(0);
+      const val = JSON.parse(ipBlacklist.cache.cache.cache.test.value['ipblacklist:127.0.0.1']);
+      expect(val.remaining).to.be.equal(0);
       done();
     });
   }).timeout(5000);
 
   it('checkBlacklist', (done) => {
     const newRes = Object.assign(res);
-    ipBlacklist.checkBlacklist(req, newRes, ((err) => {
+    ipBlacklist.checkBlacklist(req, newRes, (err) => {
       expect(newRes._status).to.be.equal(0);
       expect(newRes._message).to.be.equal('');
       done(err);
-    }));
+    });
   });
 
   it('checkBlacklist blacklisted', (done) => {
     ipBlacklist.increment(req, res, null, () => {
       const newRes = Object.assign(res);
-      ipBlacklist.config.onBlacklist = ((_req, _res, _next) => {
+      ipBlacklist.config.onBlacklist = (_req, _res, _next) => {
         _res.status(403);
         _res.send(null);
         _next();
-      });
-      ipBlacklist.checkBlacklist(req, newRes, ((err) => {
+      };
+      ipBlacklist.checkBlacklist(req, newRes, (err) => {
         expect(newRes._status).to.be.equal(403);
         expect(newRes._message).to.be.equal(null);
         done(err);
-      }));
-    });
-   });
-
-   it('checkBlacklist blacklist expired', (done) => {
-     clock.tick(10000);
-     const newRes = Object.assign(res);
-     newRes._status = 0;
-     newRes._message = '';
-     ipBlacklist.checkBlacklist(req, newRes, ((err) => {
-       expect(newRes._status).to.be.equal(0);
-       expect(newRes._message).to.be.equal('');
-       done(err);
-     }));
-    });
-
-    it('increment after blacklist expire', (done) => {
-      ipBlacklist.increment(req, res, null, () => {
-        const v = JSON.parse(ipBlacklist.cache.cache.cache['test'].value['ipblacklist:127.0.0.1']);
-        expect(v.remaining).to.be.equal(0);
-        done();
       });
-    }).timeout(5000);
+    });
+  });
 
+  it('checkBlacklist blacklist expired', (done) => {
+    clock.tick(10000);
+    const newRes = Object.assign(res);
+    newRes._status = 0;
+    newRes._message = '';
+    ipBlacklist.checkBlacklist(req, newRes, (err) => {
+      expect(newRes._status).to.be.equal(0);
+      expect(newRes._message).to.be.equal('');
+      done(err);
+    });
+  });
+
+  it('increment after blacklist expire', (done) => {
+    ipBlacklist.increment(req, res, null, () => {
+      const val = JSON.parse(ipBlacklist.cache.cache.cache.test.value['ipblacklist:127.0.0.1']);
+      expect(val.remaining).to.be.equal(0);
+      done();
+    });
+  }).timeout(5000);
 });

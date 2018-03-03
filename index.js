@@ -63,7 +63,7 @@ class IPBlacklist {
 
   checkWhitelist(req) {
     if (Array.isArray(this.config.whitelist)) {
-      let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+      const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
       return this.config.whitelist.includes(ip);
     }
 
@@ -80,14 +80,18 @@ class IPBlacklist {
     // Skip if this passes the whitelist
     if (this.checkWhitelist(req)) {
       this.log.debug('Skipping Blacklist Increment -- IP is whitelisted');
-      return (next)?next():undefined;
+      return next ? next() : undefined;
     }
 
     const lookups = this.calcLookups(req, res);
     const key = `ipblacklist:${lookups}`;
     const timestamp = Date.now();
 
-    const defaultLimit = { total: this.config.count, remaining: this.config.count, reset: timestamp + this.config.expire };
+    const defaultLimit = {
+      total: this.config.count,
+      remaining: this.config.count,
+      reset: timestamp + this.config.expire
+    };
 
     this.cache
       .hgetAsync(this.namespace, key)
@@ -113,7 +117,9 @@ class IPBlacklist {
       })
       .then(() => {
         // Do nothing
-        if (closure) { closure(); }
+        if (closure) {
+          closure();
+        }
       })
       .catch((err) => {
         // There was som error trying to retrieve the rate limit cache data
@@ -121,7 +127,7 @@ class IPBlacklist {
         this.log.error(err.stack || err);
       });
 
-    return (next)?next():undefined;
+    return next ? next() : undefined;
   }
 
   checkBlacklist(req, res, next) {
@@ -144,7 +150,11 @@ class IPBlacklist {
     const key = `ipblacklist:${lookups}`;
     const timestamp = Date.now();
 
-    const defaultLimit = { total: this.config.count, remaining: this.config.count, reset: timestamp + this.config.expire };
+    const defaultLimit = {
+      total: this.config.count,
+      remaining: this.config.count,
+      reset: timestamp + this.config.expire
+    };
 
     this.cache
       .hgetAsync(this.namespace, key)
