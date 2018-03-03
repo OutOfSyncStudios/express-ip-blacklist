@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- node
+services:
+- redis-server
+before_script:
+- npm install -g gulp-cli
+script:
+- gulp
+- npm run coverage
+cache:
+  directories:
+  - node_modules
+env:
+  global:
+    secure: oTVWmLMH1/+4JUg/rrVEOndCmWiKhxmk/YIP3/KzCYhTQfRFR7SmR9zCKhu1lq3lVdDjq0COxxgg7vHgj7cjnv4HnsizYW6l16e8z9RvWso8wvAgUX+QGKqP9s+WXkRrX9oS+r1wuPbupPf1vna+nCxHQpeZQBM/t3HfzUyYXiiNISKClotdtkU8+5q9xN+tw2zR8dnX56JC8nSoUku0gK5V2+ErffRXALBoZx0IgfjPebAEbzQpsgkzH+gQ6/uchh/xCStaRsPuhHT2bFgwC3LXWiO0Ay7IOH+D46GtUcuYP5fcYTqBqyJ03z0zhSFnvyfvgAnwrY1Aw/fsavzcp4Xk6SxqjCkVAXidIpe+Rj5BeKtAokH1G3dJICOvxm1VeMjjesgUYfnNIpRonLeRh59g3URPSSD0Id1RT5bIYsmXen8qhILwdmlqmPCfwnhxsen5yBRG7bBZCvKPpFyLn3yesOG3F6WZuyae9lU0M543ZoOwgvQ+hO6fOYojgGUvQZeTcGMSJcdwywo3fb+vxeITaiMCu91dt9RmUoIlcAo+5GYeIz4YG1KROWb7gx+siSCCZTXrqJQ2IhLREEbBBFNaAT1iWSec3oaWzLdngM1YKArKhJujfaqb0ymxdCpEMvYqsfbIiDlRajZQtq2pfGP19Q6ued1RYldvXJyIrEA=
