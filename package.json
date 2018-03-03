@@ -1,7 +1,7 @@
 {
   "name": "@mediaxpost/express-ip-blacklist",
   "version": "0.0.1",
-  "description": "A cache-based, IP blacklist for ExpressJS and RequestUtils.",
+  "description": "A cache-based, IP blacklist for ExpressJS.",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha",

@@ -2,12 +2,12 @@
 
 [![NPM](https://nodei.co/npm/@mediaxpost/express-ip-blacklist.png?downloads=true)](https://nodei.co/npm/@mediaxpost/express-ip-blacklist/)
 
-[![Actual version published on npm](http://img.shields.io/npm/v/@mediaxpost/express-ip-blacklist.svg)](https://www.npmjs.org/package/@mediaxpost/express-ip-blacklist)
-[![Travis build status](https://travis-ci.org/MediaXPost/express-ip-blacklist.svg)](https://www.npmjs.org/package/@mediaxpost/express-ip-blacklist)
-[![Total npm module downloads](http://img.shields.io/npm/dt/@mediaxpost/express-ip-blacklist.svg)](https://www.npmjs.org/package/@mediaxpost/express-ip-blacklist)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d343b0fd03947e494cdddc2966ca79b)](https://www.codacy.com/app/chronosis/express-ip-blacklist?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MediaXPost/express-ip-blacklist&amp;utm_campaign=Badge_Grade)
-[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/1d343b0fd03947e494cdddc2966ca79b)](https://www.codacy.com/app/chronosis/express-ip-blacklist?utm_source=github.com&utm_medium=referral&utm_content=MediaXPost/express-ip-blacklist&utm_campaign=Badge_Coverage)
-[![Dependencies badge](https://david-dm.org/MediaXPost/express-ip-blacklist/status.svg)](https://david-dm.org/MediaXPost/express-ip-blacklist?view=list)
+![Version](http://img.shields.io/npm/v/@mediaxpost/express-ip-blacklist.svg)
+![Downloads](http://img.shields.io/npm/dt/@mediaxpost/express-ip-blacklist.svg)
+[![Build Status](https://travis-ci.org/MediaXPost/express-ip-blacklist.svg)](https://travis-ci.org/MediaXPost/express-ip-blacklist)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fa2b9ef79fd64bc482aed96f9abf7620)](https://app.codacy.com/app/projectList/chronosis/express-ip-blacklist)
+[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/fa2b9ef79fd64bc482aed96f9abf7620)](https://app.codacy.com/app/projectList/chronosis/express-ip-blacklist)
+[![Dependencies](https://david-dm.org/MediaXPost/express-ip-blacklist/status.svg)](https://david-dm.org/MediaXPost/express-ip-blacklist)
 
 `express-ip-blacklist` is a cache-based, IP blacklist for use with [`expressJS`](https://www.npmjs.com/package/express). It caches  a store of IP addresses used to make bad requests and then temporarily blocks requests from those sources once a threshold of bad requests has been exceeded. In this way it is possible to limit access of bad actors to any system.
 
@@ -41,7 +41,7 @@ app.use(ipBlacklist.increment);
 <a name="api"></a>
 # [API Reference](#api)
 
-## constructor(cacheNamespace [,config] [, cache] [, log])
+## constructor(cacheNamespace [, config] [, cache] [, log])
 Create a new IP Blacklist client with the passed `cacheNamespace`, [`config`](#config-object), [`cache`](#cache-object), and [`log`](#logging-object).  A `cacheNamespace` is required to scope the IP Blacklist from other values which may be in use within the cache.
 
 ## checkBlacklist(req, res, next)
