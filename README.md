@@ -1,13 +1,13 @@
 # express-ip-blacklist
 
-[![NPM](https://nodei.co/npm/@mediaxpost/express-ip-blacklist.png?downloads=true)](https://nodei.co/npm/@mediaxpost/express-ip-blacklist/)
+[![NPM](https://nodei.co/npm/@outofsync/express-ip-blacklist.png?downloads=true)](https://nodei.co/npm/@outofsync/express-ip-blacklist/)
 
-![Version](http://img.shields.io/npm/v/@mediaxpost/express-ip-blacklist.svg)
-![Downloads](http://img.shields.io/npm/dt/@mediaxpost/express-ip-blacklist.svg)
-[![Build Status](https://travis-ci.org/MediaXPost/express-ip-blacklist.svg)](https://travis-ci.org/MediaXPost/express-ip-blacklist)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fa2b9ef79fd64bc482aed96f9abf7620)](https://app.codacy.com/app/projectList/chronosis/express-ip-blacklist)
-[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/fa2b9ef79fd64bc482aed96f9abf7620)](https://app.codacy.com/app/projectList/chronosis/express-ip-blacklist)
-[![Dependencies](https://david-dm.org/MediaXPost/express-ip-blacklist/status.svg)](https://david-dm.org/MediaXPost/express-ip-blacklist)
+![Version](http://img.shields.io/npm/v/@outofsync/express-ip-blacklist.svg)
+![Downloads](http://img.shields.io/npm/dt/@outofsync/express-ip-blacklist.svg)
+[![Build Status](https://travis-ci.org/OutOfSyncStudios/express-ip-blacklist.svg)](https://travis-ci.org/OutOfSyncStudios/express-ip-blacklist)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/283d41e346834e2fb88b7edbc7a7cfdd)](https://www.codacy.com/manual/OutOfSyncStudios/express-ip-blacklist?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/express-ip-blacklist&amp;utm_campaign=Badge_Grade)
+[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/283d41e346834e2fb88b7edbc7a7cfdd)](https://www.codacy.com/manual/OutOfSyncStudios/express-ip-blacklist?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/express-ip-blacklist&amp;utm_campaign=Badge_Coverage)
+[![Dependencies](https://david-dm.org/OutOfSyncStudios/express-ip-blacklist/status.svg)](https://david-dm.org/OutOfSyncStudios/express-ip-blacklist)
 
 `express-ip-blacklist` is a cache-based, IP blacklist for use with [`expressJS`](https://www.npmjs.com/package/express). It caches  a store of IP addresses used to make bad requests and then temporarily blocks requests from those sources once a threshold of bad requests has been exceeded. In this way it is possible to limit access of bad actors to any system.
 
@@ -21,14 +21,14 @@ By default, any blacklisted ip will be sent an empty 403 response with HTTP Head
 <a name="installation"></a>
 
 ```shell
-npm install @mediaxpost/express-ip-blacklist
+npm install @outofsync/express-ip-blacklist
 ```
 
 # [Usage](#usage)
 <a name="usage"></a>
 
 ```js
-const IPBlacklist = require('@mediaxpost/express-ip-blacklist');
+const IPBlacklist = require('@outofsync/express-ip-blacklist');
 ipBlacklist = new IPBlacklist('blacklist');
 
 // Later in expressJS
@@ -101,7 +101,7 @@ The configuration parameter expects and object that contains the following (with
 
 <a name="cache-object"></a>
 ## [Cache Object](#cache-object)
-The Cache object can be a active and [promisified Redis](https://www.npmjs.com/package/redis#promises) connect, or an active [Memory Cache](https://www.npmjs.com/package/@mediaxpost/memory-cache) connection, or an active [Object Key Cache](https://www.npmjs.com/package/@mediaxpost/object-key-cache). If no value is set, then IP Blacklist will create an internal Object Key Cache and use it.
+The Cache object can be a active and [promisified Redis](https://www.npmjs.com/package/redis#promises) connect, or an active [Memory Cache](https://www.npmjs.com/package/@outofsync/memory-cache) connection, or an active [Object Key Cache](https://www.npmjs.com/package/@outofsync/object-key-cache). If no value is set, then IP Blacklist will create an internal Object Key Cache and use it.
 
 <a name="logging-object"></a>
 ## [Logging Object](#logging-object)
