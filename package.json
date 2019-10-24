@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/OutofSyncStudios/express-ip-blacklist.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },  
   "keywords": [
     "express",
     "expressJS",
