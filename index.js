@@ -1,8 +1,8 @@
 // index.js
 
 // Dependencies
-const __ = require('@mediaxpost/lodashext');
-const ObjectKeyCache = require('@mediaxpost/object-key-cache');
+const __ = require('@outofsync/lodash-ex');
+const ObjectKeyCache = require('@outofsync/object-key-cache');
 const LogStub = require('logstub');
 
 class IPBlacklist {
