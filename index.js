@@ -1,9 +1,16 @@
 // index.js
 
 // Dependencies
-const __ = require('@outofsync/lodash-ex');
 const ObjectKeyCache = require('@outofsync/object-key-cache');
+const isNil = require('lodash.isnil');
+const merge = require('lodash.merge');
 const LogStub = require('logstub');
+
+function defaultBlacklistFn(_req, res) {
+  // Send an empty 403 response to blacklisted ips
+  res.status(403);
+  res.send(null);
+}
 
 class IPBlacklist {
   constructor(namespace, config, cache, log) {
@@ -20,14 +27,14 @@ class IPBlacklist {
       noip: false
     };
 
-    if (__.isUnset(namespace)) {
+    if (isNil(namespace)) {
       throw new Error('The IP Blacklist cache namespace can not be omitted.');
     }
     this.namespace = namespace;
 
     this.cache = cache;
     // Default the cache to a memory cache if unset
-    if (__.isUnset(this.cache)) {
+    if (isNil(this.cache)) {
       this.cache = new ObjectKeyCache();
       this.cache.connect();
     }
@@ -35,7 +42,7 @@ class IPBlacklist {
     // Default to a logstub if not provided
     this.log = log || new LogStub();
 
-    this.config = __.merge(Object.assign(defaults), config);
+    this.config = merge(Object.assign(defaults), config);
   }
 
   calcLookups(req, res) {
@@ -46,7 +53,7 @@ class IPBlacklist {
     }
 
     // Make sure that the lookups are an array if unset
-    if (__.hasValue(this.config.lookup)) {
+    if (!isNil(this.config.lookup)) {
       // Convert to Array if not already
       looks = Array.isArray(this.config.lookup) ? this.config.lookup.splice(0) : [this.config.lookup];
     }
@@ -58,7 +65,7 @@ class IPBlacklist {
     }
 
     // merge lookup options
-    return __.join(looks, ':');
+    return looks.join(':');
   }
 
   checkWhitelist(req) {
@@ -140,11 +147,8 @@ class IPBlacklist {
     }
 
     // Set onRateLimited function
-    this.config.onBlacklist = typeof this.config.onBlacklist === 'function' ? this.config.onBlacklist : (_req, _res) => {
-      // Send an empty 403 response to blacklisted ips
-      _res.status(403);
-      _res.send(null);
-    };
+    const onBlacklistType = typeof this.config.onBlacklist;
+    this.config.onBlacklist = (onBlacklistType === 'function') ? this.config.onBlacklist : defaultBlacklistFn;
 
     const lookups = this.calcLookups(req, res);
     const key = `ipblacklist:${lookups}`;
@@ -186,7 +190,7 @@ class IPBlacklist {
         this.config.onBlacklist(req, res, next);
       })
       .catch((err) => {
-        // There was som error trying to retrieve the blacklist cache data
+        // There was some error trying to retrieve the blacklist cache data
         // Log the error and skip
         this.log.error(err.stack || err);
         return next();

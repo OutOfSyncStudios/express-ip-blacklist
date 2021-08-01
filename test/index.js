@@ -1,6 +1,7 @@
 // test/index.js
 
 // Dependancies
+const assign = require('lodash.assign');
 const lolex = require('lolex');
 const chai = require('chai');
 const expect = chai.expect;
@@ -90,7 +91,7 @@ describe('IPBlacklist', () => {
   }).timeout(5000);
 
   it('checkBlacklist', (done) => {
-    const newRes = Object.assign(res);
+    const newRes = assign(res);
     ipBlacklist.checkBlacklist(req, newRes, (err) => {
       expect(newRes._status).to.be.equal(0);
       expect(newRes._message).to.be.equal('');
@@ -99,13 +100,13 @@ describe('IPBlacklist', () => {
   });
 
   it('checkBlacklist blacklisted', (done) => {
+    ipBlacklist.config.onBlacklist = (_req, _res, _next) => {
+      _res.status(403);
+      _res.send(null);
+      _next();
+    };
     ipBlacklist.increment(req, res, null, () => {
-      const newRes = Object.assign(res);
-      ipBlacklist.config.onBlacklist = (_req, _res, _next) => {
-        _res.status(403);
-        _res.send(null);
-        _next();
-      };
+      const newRes = assign(res);
       ipBlacklist.checkBlacklist(req, newRes, (err) => {
         expect(newRes._status).to.be.equal(403);
         expect(newRes._message).to.be.equal(null);
@@ -116,7 +117,7 @@ describe('IPBlacklist', () => {
 
   it('checkBlacklist blacklist expired', (done) => {
     clock.tick(10000);
-    const newRes = Object.assign(res);
+    const newRes = assign(res);
     newRes._status = 0;
     newRes._message = '';
     ipBlacklist.checkBlacklist(req, newRes, (err) => {
