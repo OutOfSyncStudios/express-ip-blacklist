@@ -4,9 +4,9 @@
 
 ![Version](http://img.shields.io/npm/v/@outofsync/express-ip-blacklist.svg)
 ![Downloads](http://img.shields.io/npm/dt/@outofsync/express-ip-blacklist.svg)
-[![Build Status](https://travis-ci.org/OutOfSyncStudios/express-ip-blacklist.svg)](https://travis-ci.org/OutOfSyncStudios/express-ip-blacklist)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/283d41e346834e2fb88b7edbc7a7cfdd)](https://www.codacy.com/manual/OutOfSyncStudios/express-ip-blacklist?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/express-ip-blacklist&amp;utm_campaign=Badge_Grade)
-[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/283d41e346834e2fb88b7edbc7a7cfdd)](https://www.codacy.com/manual/OutOfSyncStudios/express-ip-blacklist?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/express-ip-blacklist&amp;utm_campaign=Badge_Coverage)
+[![Build and Test Master](https://github.com/OutOfSyncStudios/express-ip-blacklist/actions/workflows/build-master.yml/badge.svg)](https://github.com/OutOfSyncStudios/express-ip-blacklist/actions/workflows/build-master.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/00d912396e12481bafa5136f1378622e)](https://www.codacy.com/gh/OutOfSyncStudios/express-ip-blacklist/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/express-ip-blacklist&amp;utm_campaign=Badge_Grade)
+[![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/00d912396e12481bafa5136f1378622e)](https://www.codacy.com/gh/OutOfSyncStudios/express-ip-blacklist/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OutOfSyncStudios/express-ip-blacklist&amp;utm_campaign=Badge_Coverage)
 [![Dependencies](https://david-dm.org/OutOfSyncStudios/express-ip-blacklist/status.svg)](https://david-dm.org/OutOfSyncStudios/express-ip-blacklist)
 
 `express-ip-blacklist` is a cache-based, automated IP blacklisting processor for use with [`expressJS`](https://www.npmjs.com/package/express). It caches a store of IP addresses that are used to make bad requests and then temporarily blocks all requests from those sources once a specified threshold of bad requests has been exceeded.
